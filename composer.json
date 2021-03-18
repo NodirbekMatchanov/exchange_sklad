@@ -1,0 +1,30 @@
+{
+    "name": "rare/yii2-1c-exchange",
+    "description": "Расширения для интеграции 1с и мой склад через commerML",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nodirbek Matchanov",
+            "email": "nodirbekrare1@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6",
+        "yiisoft/yii2": "^2.0",
+        "carono/commerceml": "^0.2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "rare\\exchange1c\\": ""
+        }
+    },
+    "repositories":[
+        {
+            "type": "git",
+            "url": "https://github.com/NodirbekMatchanov/exchange1c.git"
+        }
+    ]
+}
