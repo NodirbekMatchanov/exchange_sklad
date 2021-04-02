@@ -9,11 +9,11 @@ use rare\exchange1c\helpers\ModuleHelper;
 class UrlRule extends \yii\web\UrlRule
 {
     public $route = 'exchange/api/<mode>/<auth>';
-    public $pattern = '1c_exchange.php/<auth>';
+    public $pattern = 'exchange/<system>/<auth>';
 
     public function init()
     {
-        $this->route = ModuleHelper::getModuleNameByClass('rare\exchange1c\ExchangeModule', 'exchange') . '/api/<mode>';
+        $this->route = ModuleHelper::getModuleNameByClass('carono\exchange1c\ExchangeModule', 'exchange') . '/api/<mode>';
         parent::init();
     }
 
