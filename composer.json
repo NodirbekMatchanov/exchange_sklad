@@ -16,10 +16,14 @@
         "yiisoft/yii2": "^2.0",
         "carono/commerceml": "^0.2.3"
     },
+
     "autoload": {
         "psr-4": {
             "rare\\exchange1c\\": ""
         }
+    },
+    "extra": {
+        "bootstrap": "rare\\exchange1c\\Bootstrap"
     },
     "repositories":[
         {
