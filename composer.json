@@ -22,9 +22,11 @@
             "rare\\exchange1c\\": ""
         }
     },
+
     "extra": {
         "bootstrap": "rare\\exchange1c\\Bootstrap"
     },
+    
     "repositories":[
         {
             "type": "git",
