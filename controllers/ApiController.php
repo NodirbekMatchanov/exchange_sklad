@@ -175,6 +175,10 @@ class ApiController extends Controller
      */
     public function parsingImport($file)
     {
+        if($log = $this->getLogClass()) {
+            $model_log = $log::createStartLog();
+        }
+
         $this->_ids = [];
         $commerce = new CommerceML();
         $commerce->loadImportXml($file);
@@ -190,23 +194,26 @@ class ApiController extends Controller
         }
         $productClass = $this->getProductClass();
         $productClass::createProperties1c($commerce->classifier->getProperties());
-        $count = 0;
+        $count_new_product = 0;
         foreach ($commerce->catalog->getProducts() as $product) {
-           if (!$model = $productClass::createModel1c($product)) {
+            if (!$model = $productClass::createModel1c($product)) {
                 Yii::error("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c",
                     'exchange1c');
                 continue;
             }
-
+    
+            if($model->new_product) {
+                $count_new_product++;
+            }
+    
             $this->parseProduct($model, $product);
             $this->_ids[] = $model->getPrimaryKey();
             $model = null;
             unset($model, $product);
             gc_collect_cycles();
-            $count++;
         }
         if($log = $this->getLogClass()){
-            $log::createLog('product',$count);
+            $log::createFinishLog($model_log, $count_new_product);
         }
         $this->afterProductSync();
     }
