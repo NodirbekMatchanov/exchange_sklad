@@ -190,6 +190,7 @@ class ApiController extends Controller
         }
         $productClass = $this->getProductClass();
         $productClass::createProperties1c($commerce->classifier->getProperties());
+        $count = 0;
         foreach ($commerce->catalog->getProducts() as $product) {
            if (!$model = $productClass::createModel1c($product)) {
                 Yii::error("Модель продукта не найдена, проверьте реализацию $productClass::createModel1c",
@@ -202,6 +203,10 @@ class ApiController extends Controller
             $model = null;
             unset($model, $product);
             gc_collect_cycles();
+            $count++;
+        }
+        if($log = $this->getLogClass()){
+            $log::createLog('product',$count);
         }
         $this->afterProductSync();
     }
@@ -218,17 +223,22 @@ class ApiController extends Controller
             $offerClass::createPriceTypes1c($commerce->offerPackage->getPriceTypes());
         }
         $this->beforeOfferSync();
+        $count = 0;
         foreach ($commerce->offerPackage->getOffers() as $offer) {
             $product_id = $offer->getClearId();
             if ($product = $this->findProductModelById($product_id)) {
                 $model = $product->getOffer1c($offer);
                 $this->parseProductOffer($model, $offer);
                 $this->_ids[] = $model->getPrimaryKey();
+                $count++;
             } else {
                 Yii::warning("Продукт $product_id не найден в базе", 'exchange1c');
                 continue;
             }
             unset($model);
+        }
+        if($log = $this->getLogClass()){
+            $log::createLog('offer',$count);
         }
         $this->afterOfferSync();
     }
@@ -524,6 +534,14 @@ class ApiController extends Controller
     protected function getProductClass()
     {
         return $this->module->productClass;
+    }
+
+    /**
+     * @return ProductInterface
+     */
+    protected function getLogClass()
+    {
+        return $this->module->logClass;
     }
 
     /**

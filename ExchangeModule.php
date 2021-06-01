@@ -33,7 +33,11 @@ class ExchangeModule extends \yii\base\Module
      * Модель документа
      *
      * @var \rare\exchange1c\interfaces\DocumentInterface
-     */
+     */ 
+    
+    /* Лог выгрузки */
+    public $logClass;
+
     public $documentClass;
     /**
      * Модель группы продукта
