@@ -43,4 +43,18 @@ interface OfferInterface extends ActiveRecordInterface, ExportFieldsInterface, I
      * @return void
      */
     public function setSpecification1c($specification);
+
+    /**
+     * offers.xml > ПакетПредложений > Предложения > Предложение > ХарактеристикиТовара > ХарактеристикаТовара
+     *
+     * for import type = moysklad
+     *
+     * Характеристики товара
+     * $name - Наименование
+     * $value - Значение
+     *
+     * @param \Zenwalker\CommerceML\Model\Simple $specification
+     * @return void
+     */
+    public function setSpecificationMc($specification);
 }

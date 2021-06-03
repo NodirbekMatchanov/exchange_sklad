@@ -512,6 +512,7 @@ class ApiController extends Controller
     {
         foreach ($offer->getSpecifications() as $specification) {
             $model->setSpecification1c($specification);
+            $model->setSpecificationMc($specification);
         }
     }
 
